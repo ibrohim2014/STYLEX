@@ -1,0 +1,647 @@
+
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>STYLEX — Fashion Store</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,sans-serif;
+}
+
+body{
+    background:#f5f5f7;
+    color:#111;
+    transition:.3s;
+}
+
+body.dark{
+    background:#111;
+    color:white;
+}
+
+header{
+    position:sticky;
+    top:0;
+    z-index:100;
+    background:#fff;
+    padding:18px 7%;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    box-shadow:0 3px 20px #00000012;
+}
+
+.dark header{
+    background:#1b1b1b;
+}
+
+.logo{
+    font-size:28px;
+    font-weight:900;
+    letter-spacing:2px;
+}
+
+.logo span{
+    color:#ff4d00;
+}
+
+nav{
+    display:flex;
+    gap:25px;
+}
+
+nav a{
+    text-decoration:none;
+    color:inherit;
+    font-weight:600;
+}
+
+.header-buttons{
+    display:flex;
+    gap:10px;
+}
+
+.header-buttons button{
+    border:0;
+    background:#eee;
+    padding:11px 15px;
+    border-radius:12px;
+    cursor:pointer;
+    font-size:18px;
+}
+
+.dark .header-buttons button{
+    background:#333;
+    color:white;
+}
+
+.hero{
+    min-height:500px;
+    padding:70px 7%;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    background:linear-gradient(120deg,#111,#333);
+    color:white;
+}
+
+.hero-text{
+    max-width:550px;
+}
+
+.hero h1{
+    font-size:65px;
+    line-height:1;
+    margin-bottom:25px;
+}
+
+.hero h1 span{
+    color:#ff4d00;
+}
+
+.hero p{
+    color:#ccc;
+    font-size:18px;
+    margin-bottom:30px;
+}
+
+.hero button{
+    padding:15px 30px;
+    border:0;
+    border-radius:30px;
+    background:#ff4d00;
+    color:white;
+    font-size:17px;
+    cursor:pointer;
+}
+
+.hero-image{
+    width:430px;
+    height:430px;
+    border-radius:50%;
+    overflow:hidden;
+    box-shadow:0 0 70px #ff4d0044;
+}
+
+.hero-image img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+.search-box{
+    padding:35px 7% 15px;
+}
+
+.search{
+    width:100%;
+    padding:17px 22px;
+    border:2px solid #ddd;
+    border-radius:15px;
+    outline:none;
+    font-size:16px;
+}
+
+.dark .search{
+    background:#222;
+    color:white;
+    border-color:#444;
+}
+
+.categories{
+    padding:20px 7%;
+    display:flex;
+    gap:10px;
+    overflow-x:auto;
+}
+
+.categories button{
+    border:0;
+    padding:12px 20px;
+    border-radius:30px;
+    cursor:pointer;
+    background:#fff;
+    white-space:nowrap;
+}
+
+.categories button.active,
+.categories button:hover{
+    background:#ff4d00;
+    color:white;
+}
+
+.dark .categories button{
+    background:#222;
+    color:white;
+}
+
+.products{
+    padding:25px 7% 70px;
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:25px;
+}
+
+.card{
+    background:white;
+    border-radius:20px;
+    overflow:hidden;
+    position:relative;
+    transition:.3s;
+    box-shadow:0 5px 20px #00000010;
+}
+
+.dark .card{
+    background:#1c1c1c;
+}
+
+.card:hover{
+    transform:translateY(-8px);
+    box-shadow:0 15px 30px #00000020;
+}
+
+.card img{
+    width:100%;
+    height:280px;
+    object-fit:cover;
+}
+
+.card-info{
+    padding:18px;
+}
+
+.card-info h3{
+    margin-bottom:8px;
+}
+
+.category{
+    color:#888;
+    font-size:13px;
+}
+
+.price{
+    font-size:20px;
+    font-weight:bold;
+    margin:12px 0;
+}
+
+.card button{
+    width:100%;
+    padding:12px;
+    border:0;
+    border-radius:12px;
+    background:#111;
+    color:white;
+    cursor:pointer;
+}
+
+.card button:hover{
+    background:#ff4d00;
+}
+
+.favorite{
+    position:absolute;
+    top:12px;
+    right:12px;
+    width:40px !important;
+    height:40px;
+    border-radius:50% !important;
+    background:white !important;
+    color:#111 !important;
+    font-size:18px;
+}
+
+footer{
+    padding:40px 7%;
+    background:#111;
+    color:white;
+    text-align:center;
+}
+
+.cart{
+    position:fixed;
+    right:-420px;
+    top:0;
+    width:380px;
+    height:100%;
+    background:white;
+    z-index:200;
+    padding:25px;
+    transition:.4s;
+    box-shadow:-10px 0 30px #0003;
+}
+
+.dark .cart{
+    background:#1c1c1c;
+}
+
+.cart.open{
+    right:0;
+}
+
+.cart h2{
+    margin-bottom:25px;
+}
+
+.cart-item{
+    display:flex;
+    justify-content:space-between;
+    padding:15px 0;
+    border-bottom:1px solid #ddd;
+}
+
+.close{
+    position:absolute;
+    right:20px;
+    top:15px;
+    border:0;
+    background:none;
+    font-size:25px;
+    cursor:pointer;
+}
+
+@media(max-width:1000px){
+    .products{
+        grid-template-columns:repeat(3,1fr);
+    }
+
+    .hero-image{
+        width:330px;
+        height:330px;
+    }
+}
+
+@media(max-width:750px){
+    nav{
+        display:none;
+    }
+
+    .hero{
+        flex-direction:column;
+        text-align:center;
+        gap:40px;
+    }
+
+    .hero h1{
+        font-size:45px;
+    }
+
+    .products{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .hero-image{
+        width:280px;
+        height:280px;
+    }
+}
+
+@media(max-width:500px){
+    .products{
+        grid-template-columns:1fr;
+    }
+
+    .cart{
+        width:100%;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <div class="logo">STYLE<span>X</span></div>
+
+    <nav>
+        <a href="#">Bosh sahifa</a>
+        <a href="#products">Kiyimlar</a>
+        <a href="#">Yangi</a>
+    </nav>
+
+    <div class="header-buttons">
+        <button onclick="darkMode()">🌙</button>
+        <button onclick="openCart()">🛒 <span id="cartCount">0</span></button>
+    </div>
+</header>
+
+<section class="hero">
+    <div class="hero-text">
+        <h1>O'z uslubingni <span>yarat.</span></h1>
+        <p>
+            Zamonaviy, sifatli va trenddagi kiyimlar.
+            O'zingga mos uslubni STYLEX bilan top.
+        </p>
+        <button onclick="document.getElementById('products').scrollIntoView()">
+            Kiyimlarni ko'rish →
+        </button>
+    </div>
+
+    <div class="hero-image">
+        <img src="https://images.unsplash.com/photo-1529139574466-a303027c1d8b?auto=format&fit=crop&w=700&q=80">
+    </div>
+</section>
+
+<div class="search-box">
+    <input
+        class="search"
+        id="search"
+        type="text"
+        placeholder="🔍 Kiyim qidiring... masalan: futbolka, shim, kurtka"
+        oninput="searchProducts()"
+    >
+</div>
+
+<div class="categories">
+    <button class="active" onclick="filterProducts('all',this)">Barchasi</button>
+    <button onclick="filterProducts('Futbolka',this)">👕 Futbolka</button>
+    <button onclick="filterProducts('Ko‘ylak',this)">👔 Ko‘ylak</button>
+    <button onclick="filterProducts('Shim',this)">👖 Shim</button>
+    <button onclick="filterProducts('Kurtka',this)">🧥 Kurtka</button>
+    <button onclick="filterProducts('Sviter',this)">🧶 Sviter</button>
+    <button onclick="filterProducts('Ko‘ylaklar',this)">👗 Ayollar</button>
+    <button onclick="filterProducts('Oyoq kiyim',this)">👟 Oyoq kiyim</button>
+    <button onclick="filterProducts('Aksessuar',this)">🧢 Aksessuar</button>
+</div>
+
+<section class="products" id="products"></section>
+
+<div class="cart" id="cart">
+    <button class="close" onclick="closeCart()">×</button>
+    <h2>🛒 Savatcha</h2>
+    <div id="cartItems"></div>
+    <h3 id="total">Jami: 0 so'm</h3>
+</div>
+
+<footer>
+    <h2>STYLEX</h2>
+    <p>© 2026 STYLEX — Fashion Store</p>
+</footer>
+
+<script>
+
+const products = [
+
+["Classic White T-Shirt","Futbolka",89000,"https://images.unsplash.com/photo-1521572163474-6864f9cf17ab"],
+["Black Oversize T-Shirt","Futbolka",109000,"https://images.unsplash.com/photo-1503341504253-dff4815485f1"],
+["Premium White T-Shirt","Futbolka",129000,"https://images.unsplash.com/photo-1583743814966-8936f37f4b5e"],
+["Street Black T-Shirt","Futbolka",119000,"https://images.unsplash.com/photo-1551488831-00ddcb6c6bd3"],
+["Green Basic T-Shirt","Futbolka",99000,"https://images.unsplash.com/photo-1562157873-818bc0726f68"],
+["Blue T-Shirt","Futbolka",99000,"https://images.unsplash.com/photo-1523381210434-271e8be1f52b"],
+
+["Classic White Shirt","Ko‘ylak",179000,"https://images.unsplash.com/photo-1603252110481-7ba873bf42ab"],
+["Black Formal Shirt","Ko‘ylak",199000,"https://images.unsplash.com/photo-1596755094514-f87e34085b2c"],
+["Blue Shirt","Ko‘ylak",169000,"https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf"],
+["Linen Shirt","Ko‘ylak",219000,"https://images.unsplash.com/photo-1621072156002-e2fccdc0b176"],
+["Casual Shirt","Ko‘ylak",189000,"https://images.unsplash.com/photo-1598033129183-c4f50c736f10"],
+["Brown Shirt","Ko‘ylak",199000,"https://images.unsplash.com/photo-1563630423918-b58f07336ac9"],
+
+["Blue Jeans","Shim",249000,"https://images.unsplash.com/photo-1542272604-787c3835535d"],
+["Black Jeans","Shim",259000,"https://images.unsplash.com/photo-1541099649105-f69ad21f3246"],
+["Baggy Jeans","Shim",289000,"https://images.unsplash.com/photo-1602293589930-45aad59ba3ab"],
+["Classic Pants","Shim",279000,"https://images.unsplash.com/photo-1594633312681-425c7b97ccd1"],
+["Cargo Pants","Shim",299000,"https://images.unsplash.com/photo-1517445312882-bc9910d016b3"],
+["Grey Pants","Shim",239000,"https://images.unsplash.com/photo-1624378439575-d8705ad7ae80"],
+
+["Black Bomber","Kurtka",449000,"https://images.unsplash.com/photo-1551028719-00167b16eac5"],
+["Winter Jacket","Kurtka",599000,"https://images.unsplash.com/photo-1548883354-94bcfe321cbb"],
+["Leather Jacket","Kurtka",699000,"https://images.unsplash.com/photo-1520975958225-7f61d9b5e4e5"],
+["Denim Jacket","Kurtka",399000,"https://images.unsplash.com/photo-1543076447-215ad9ba6923"],
+["Puffer Jacket","Kurtka",549000,"https://images.unsplash.com/photo-1544022613-e87ca75a784a"],
+
+["Grey Hoodie","Sviter",259000,"https://images.unsplash.com/photo-1556821840-3a63f95609a7"],
+["Black Hoodie","Sviter",279000,"https://images.unsplash.com/photo-1551488831-00ddcb6c6bd3"],
+["White Hoodie","Sviter",269000,"https://images.unsplash.com/photo-1620799140408-edc6dcb6d633"],
+["Brown Sweater","Sviter",299000,"https://images.unsplash.com/photo-1576566588028-4147f3842f27"],
+["Cream Sweater","Sviter",289000,"https://images.unsplash.com/photo-1604644401890-0bd678c83788"],
+
+["Elegant Dress","Ko‘ylaklar",399000,"https://images.unsplash.com/photo-1566174053879-31528523f8ae"],
+["Black Dress","Ko‘ylaklar",429000,"https://images.unsplash.com/photo-1539008835657-9e8e9680c956"],
+["Summer Dress","Ko‘ylaklar",349000,"https://images.unsplash.com/photo-1595777457583-95e059d581b8"],
+["White Dress","Ko‘ylaklar",389000,"https://images.unsplash.com/photo-1515372039744-b8f02a3ae446"],
+["Red Dress","Ko‘ylaklar",449000,"https://images.unsplash.com/photo-1591369822096-ffd140ec948f"],
+
+["Nike Style Sneakers","Oyoq kiyim",499000,"https://images.unsplash.com/photo-1542291026-7eec264c27ff"],
+["White Sneakers","Oyoq kiyim",399000,"https://images.unsplash.com/photo-1495555961986-6d4c1ecb7be3"],
+["Black Sneakers","Oyoq kiyim",429000,"https://images.unsplash.com/photo-1552346154-21d32810aba3"],
+["Running Shoes","Oyoq kiyim",459000,"https://images.unsplash.com/photo-1542291026-7eec264c27ff"],
+["Classic Shoes","Oyoq kiyim",379000,"https://images.unsplash.com/photo-1614252369475-531eba835eb1"],
+
+["Black Cap","Aksessuar",79000,"https://images.unsplash.com/photo-1521369909029-2afed882baee"],
+["White Cap","Aksessuar",69000,"https://images.unsplash.com/photo-1588850561407-ed78c282e89b"],
+["Classic Watch","Aksessuar",299000,"https://images.unsplash.com/photo-1524805444758-089113d48a6d"],
+["Leather Bag","Aksessuar",349000,"https://images.unsplash.com/photo-1553062407-98eeb64c6a62"],
+["Backpack","Aksessuar",279000,"https://images.unsplash.com/photo-1553062407-98eeb64c6a62"],
+["Sunglasses","Aksessuar",129000,"https://images.unsplash.com/photo-1511499767150-a48a237f0083"],
+["Belt","Aksessuar",99000,"https://images.unsplash.com/photo-1624222247344-550fb60583dc"],
+["Scarf","Aksessuar",119000,"https://images.unsplash.com/photo-1520903920243-00d872a2d1c9"],
+["Leather Wallet","Aksessuar",149000,"https://images.unsplash.com/photo-1627123424574-724758594e93"],
+["Sport Bag","Aksessuar",219000,"https://images.unsplash.com/photo-1553062407-98eeb64c6a62"]
+
+];
+
+let cart = [];
+
+function showProducts(list=products){
+
+    const container=document.getElementById("products");
+
+    container.innerHTML="";
+
+    list.forEach((p,index)=>{
+
+        container.innerHTML+=`
+
+        <div class="card">
+
+            <button class="favorite" onclick="favorite(this)">♡</button>
+
+            <img src="${p[3]}?auto=format&fit=crop&w=600&q=80">
+
+            <div class="card-info">
+
+                <div class="category">${p[1]}</div>
+
+                <h3>${p[0]}</h3>
+
+                <div class="price">${p[2].toLocaleString()} so'm</div>
+
+                <button onclick="addCart(${index})">
+                    🛒 Savatga qo'shish
+                </button>
+
+            </div>
+
+        </div>
+
+        `;
+
+    });
+
+}
+
+function addCart(index){
+
+    cart.push(products[index]);
+
+    document.getElementById("cartCount").innerText=cart.length;
+
+    updateCart();
+
+    document.getElementById("cart").classList.add("open");
+
+}
+
+function updateCart(){
+
+    const box=document.getElementById("cartItems");
+
+    box.innerHTML="";
+
+    let total=0;
+
+    cart.forEach((item,index)=>{
+
+        total+=item[2];
+
+        box.innerHTML+=`
+
+        <div class="cart-item">
+
+            <span>${item[0]}</span>
+
+            <b>${item[2].toLocaleString()} so'm</b>
+
+            <button onclick="removeCart(${index})">×</button>
+
+        </div>
+
+        `;
+
+    });
+
+    document.getElementById("total").innerText=
+    "Jami: "+total.toLocaleString()+" so'm";
+
+}
+
+function removeCart(index){
+
+    cart.splice(index,1);
+
+    document.getElementById("cartCount").innerText=cart.length;
+
+    updateCart();
+
+}
+
+function openCart(){
+    document.getElementById("cart").classList.add("open");
+}
+
+function closeCart(){
+    document.getElementById("cart").classList.remove("open");
+}
+
+function favorite(btn){
+
+    if(btn.innerText==="♡"){
+        btn.innerText="♥";
+        btn.style.color="red";
+    }else{
+        btn.innerText="♡";
+        btn.style.color="#111";
+    }
+
+}
+
+function darkMode(){
+
+    document.body.classList.toggle("dark");
+
+}
+
+function filterProducts(category,btn){
+
+    document.querySelectorAll(".categories button")
+    .forEach(b=>b.classList.remove("active"));
+
+    btn.classList.add("active");
+
+    if(category==="all"){
+        showProducts();
+    }else{
+        showProducts(products.filter(p=>p[1]===category));
+    }
+
+}
+
+function searchProducts(){
+
+    const value=document
+        .getElementById("search")
+        .value
+        .toLowerCase();
+
+    const result=products.filter(p=>
+        p[0].toLowerCase().includes(value) ||
+        p[1].toLowerCase().includes(value)
+    );
+
+    showProducts(result);
+
+}
+
+showProducts();
+
+</script>
+
+</body>
+</html>
+```
